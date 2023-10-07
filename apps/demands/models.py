@@ -33,6 +33,7 @@ class Demand(BaseModel):
     status = models.IntegerField(
         choices=StatusChoices.choices, default=StatusChoices.OPENED
     )
+    rejection_reason = models.TextField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.pk is None:
