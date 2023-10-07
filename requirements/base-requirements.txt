@@ -2,3 +2,4 @@ wheel
 setuptools
 python-dotenv
 black
+Pillow
