@@ -7,9 +7,9 @@ from rest_framework.permissions import AllowAny
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
 
 from rest_framework.serializers import ValidationError
+from rest_framework.exceptions import MethodNotAllowed
 
 
 class DemandViewset(viewsets.ModelViewSet):
@@ -25,10 +25,14 @@ class DemandViewset(viewsets.ModelViewSet):
     lookup_field = "code"
 
     def get_permissions(self):
-        super().http_method_names
         if self.action in ["create", "list", "retrieve"]:
             return [AllowAny()]
         return super().get_permissions()
+
+    def partial_update(self, request, *args, **kwargs):
+        if action != "update_status":
+            raise MethodNotAllowed("PATCH")
+        return super().partial_update(request, *args, **kwargs)
 
     @action(detail=True, methods=["patch"])
     def update_status(self, request, code=None):
