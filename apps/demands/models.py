@@ -41,7 +41,7 @@ class Demand(BaseModel):
 
             code = "".join(random.choice(characters) for _ in range(code_length))
 
-            while self.__class__.objects.filter(code=code).exists():  # obs 1
+            while self.__class__.objects.filter(code=code).exists():
                 code = "".join(random.choice(characters) for _ in range(code_length))
 
             self.code = code

@@ -17,6 +17,8 @@ class DemandViewset(viewsets.ModelViewSet):
         "patch",
     ]
 
+    lookup_field = "code"
+
     def get_permissions(self):
         super().http_method_names
         if self.action in ["create"]:
