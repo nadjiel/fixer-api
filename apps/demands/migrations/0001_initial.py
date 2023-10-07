@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="UserProfile",
+            name="Demand",
             fields=[
                 (
                     "id",
@@ -25,13 +25,22 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("last_updated", models.DateTimeField(auto_now=True)),
+                ("text", models.TextField()),
+                ("code", models.CharField(blank=True, max_length=10)),
                 (
-                    "owner",
-                    models.OneToOneField(
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
             ],
+            options={
+                "abstract": False,
+            },
         ),
     ]
