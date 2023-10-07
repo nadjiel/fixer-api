@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    container_name: hackathon
+    ports:
+      - 5432:5432
