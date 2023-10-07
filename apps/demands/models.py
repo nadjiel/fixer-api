@@ -35,6 +35,8 @@ class Demand(BaseModel):
     )
     rejection_reason = models.TextField(blank=True, null=True)
 
+    picture = models.ImageField(upload_to="demand_pictures/")
+
     def save(self, *args, **kwargs):
         if self.pk is None:
             code_length = 10

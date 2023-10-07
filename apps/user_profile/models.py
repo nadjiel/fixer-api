@@ -11,4 +11,8 @@ USER_MODEL_STRING = settings.AUTH_USER_MODEL
 
 
 class UserProfile(models.Model):
-    owner = models.OneToOneField(USER_MODEL_STRING, on_delete=models.CASCADE)
+    owner = models.OneToOneField(
+        USER_MODEL_STRING, on_delete=models.CASCADE, related_name="profile"
+    )
+    phone = models.CharField(max_length=13)
+    picture = models.ImageField(upload_to="profile_pictures/")
