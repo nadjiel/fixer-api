@@ -13,3 +13,6 @@ class Service(BaseModel):
     objects = ServiceManager()
 
     # define your fields here
+    title = models.CharField(max_length=250)
+    category = models.CharField(max_length=250)
+    sections = models.JSONField(default=list)
