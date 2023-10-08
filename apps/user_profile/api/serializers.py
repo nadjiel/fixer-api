@@ -7,6 +7,12 @@ User = get_user_model()
 from ..models import UserProfile
 
 
+class UserReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ("password",)
+
+
 class UserSerializer(serializers.ModelSerializer):
     phone = serializers.CharField(write_only=True, required=False)
     picture = serializers.ImageField(write_only=True, required=False)
