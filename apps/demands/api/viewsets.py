@@ -37,6 +37,12 @@ class DemandViewset(viewsets.ModelViewSet):
     @action(detail=True, methods=["patch"])
     def update_status(self, request, pk=None):
         # falta agora so fazer com que essa action seja acessivel apenas para admins
+
+        # logged_user = self.request.user
+
+        # if logged_user is not None and logged_user.is_superuser == False:
+        #     raise PermissionError()
+
         demand = self.get_object()
 
         status = request.data.get("status")

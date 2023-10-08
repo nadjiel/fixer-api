@@ -161,6 +161,11 @@ REST_FRAMEWORK = {
     ],
 }
 
+AUTHENTICATION_BACKENDS = [
+    "apps.user_profile.backends.EmailBackend",
+    "django.contrib.auth.backends.ModelBackend",  # Add this for other authentication methods
+]
+
 CORS_ALLOW_ALL_ORIGINS = True  # Use only in development
 
 # Rest Framework SimpleJWT Configuration
