@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .serializers import DemandSerializer
-from ..models import Demand
+from .serializers import DemandSerializer, SupportSerializer
+from ..models import Demand, Support
 
 from rest_framework.permissions import AllowAny
 
@@ -70,3 +70,15 @@ class DemandViewset(viewsets.ModelViewSet):
         demand = get_object_or_404(Demand, code=code)
         serializer = self.get_serializer(demand)
         return Response(serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def support(self, request, pk=None):
+        demand = self.get_object()
+        Support.objects.create(user=self.request.user, demand=demand)
+        serializer = self.get_serializer(demand)
+        return Response(serializer.data)
+
+
+class SupportViewset(viewsets.ModelViewSet):
+    queryset = Support.objects.all()
+    serializer_class = SupportSerializer

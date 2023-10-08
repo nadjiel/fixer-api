@@ -4,4 +4,4 @@ from .viewsets import ServiceViewset
 
 
 router = routers.DefaultRouter()
-router.register("services", ServiceViewset, basename="api-services")
+router.register(r"services", ServiceViewset, basename="api-services")

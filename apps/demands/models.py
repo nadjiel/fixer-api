@@ -53,3 +53,15 @@ class Demand(BaseModel):
 
     def __str__(self) -> str:
         return self.code
+
+
+class Support(models.Model):
+    user = models.ForeignKey(
+        USER_MODEL_AS_STRING, on_delete=models.CASCADE, related_name="supports"
+    )
+    demand = models.ForeignKey(
+        Demand, on_delete=models.CASCADE, related_name="supports"
+    )
+
+    class Meta:
+        unique_together = (("user", "demand"),)
