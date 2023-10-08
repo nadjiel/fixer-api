@@ -74,7 +74,25 @@ class DemandViewset(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"])
     def support(self, request, pk=None):
         demand = self.get_object()
+
+        support = Support.objects.filter(user=self.request.user, demand=demand)
+
+        if support.count() > 0:
+            raise ValidationError(
+                {"error": "you cannot support a single demand multiple times"}
+            )
+
         Support.objects.create(user=self.request.user, demand=demand)
+        serializer = self.get_serializer(demand)
+
+        return Response(serializer.data)
+
+    @action(detail=True, methods=["post"])
+    def unsupport(self, request, pk=None):
+        demand = self.get_object()
+        support = Support.objects.filter(user=self.request.user, demand=demand)
+        if support.count() > 0:
+            support[0].delete()
         serializer = self.get_serializer(demand)
         return Response(serializer.data)
 
