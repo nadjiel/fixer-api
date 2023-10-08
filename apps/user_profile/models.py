@@ -14,5 +14,5 @@ class UserProfile(models.Model):
     owner = models.OneToOneField(
         USER_MODEL_STRING, on_delete=models.CASCADE, related_name="profile"
     )
-    phone = models.CharField(max_length=13)
-    picture = models.ImageField(upload_to="profile_pictures/")
+    phone = models.CharField(max_length=13, blank=True, null=True)
+    picture = models.ImageField(upload_to="profile_pictures/", blank=True, null=True)
