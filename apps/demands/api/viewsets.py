@@ -99,3 +99,14 @@ class SupportViewset(viewsets.ModelViewSet):
 
     def get_permissions(self):
         return [AllowAny()]
+
+    @action(detail=False, methods=["post"])
+    def unsupport(self, request):
+        user = request.data.get("user")
+        demand = request.data.get("demand")
+
+        support = Support.objects.filter(user=user, demand=demand)
+        if support.count() > 0:
+            support[0].delete()
+
+        return Response(status=200, data={"success": "unsupported successfuly"})
