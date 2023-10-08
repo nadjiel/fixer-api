@@ -22,8 +22,6 @@ class DemandViewset(viewsets.ModelViewSet):
         "patch",
     ]
 
-    lookup_field = "code"
-
     def get_permissions(self):
         if self.action in ["create", "list", "retrieve"]:
             return [AllowAny()]
@@ -35,7 +33,7 @@ class DemandViewset(viewsets.ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
 
     @action(detail=True, methods=["patch"])
-    def update_status(self, request, code=None):
+    def update_status(self, request, pk=None):
         # falta agora so fazer com que essa action seja acessivel apenas para admins
         demand = self.get_object()
 
