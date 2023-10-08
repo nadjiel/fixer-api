@@ -18,7 +18,7 @@ class DemandSerializer(serializers.ModelSerializer):
 
     def get_supported_by_logged_user(self, obj):
         logged_user = self.context["request"].user
-        return self.__class__.model.objects.filter(user=logged_user.id).count() > 0
+        return Support.objects.filter(user=logged_user.id).count() > 0
 
     class Meta:
         model = Demand
