@@ -27,7 +27,11 @@ class Demand(BaseModel):
     # define your fields here
     text = models.TextField()
     user = models.ForeignKey(
-        USER_MODEL_AS_STRING, on_delete=models.CASCADE, blank=True, null=True
+        USER_MODEL_AS_STRING,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="demands",
     )
     code = models.CharField(max_length=10, blank=True, editable=False)
     status = models.IntegerField(

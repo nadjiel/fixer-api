@@ -8,6 +8,15 @@ from ..models import UserProfile
 
 
 class UserReadSerializer(serializers.ModelSerializer):
+    total_supports = serializers.SerializerMethodField()
+    total_demands = serializers.SerializerMethodField()
+
+    def get_total_supports(self, obj):
+        return obj.supports.count()
+
+    def get_total_demands(self, obj):
+        return obj.demands.count()
+
     class Meta:
         model = User
         exclude = ("password",)
