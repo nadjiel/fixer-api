@@ -96,3 +96,6 @@ class DemandViewset(viewsets.ModelViewSet):
 class SupportViewset(viewsets.ModelViewSet):
     queryset = Support.objects.all()
     serializer_class = SupportSerializer
+
+    def get_permissions(self):
+        return [AllowAny()]
