@@ -18,8 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        phone = validated_data.pop("phone")
-        picture = validated_data.pop("picture")
+        if "phone" in validated_data:
+            phone = validated_data.pop("phone")
+
+        if "picture" in validated_data:
+            picture = validated_data.pop("picture")
         # email = validated_data.pop("email")
 
         user = User.objects.create(**validated_data)
