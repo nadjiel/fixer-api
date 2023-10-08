@@ -59,7 +59,7 @@ class DemandViewset(viewsets.ModelViewSet):
         serializer = self.get_serializer(demand)
         return Response(serializer.data)
 
-    @action(detail=True, methods=["get"], url_path="code/(?P<code>[^/.]+)")
+    @action(detail=False, methods=["get"], url_path="code/(?P<code>[^/.]+)")
     def filter_by_code(self, request, code=None):
         demand = get_object_or_404(Demand, code=code)
         serializer = self.get_serializer(demand)
