@@ -18,14 +18,10 @@ class DemandViewset(viewsets.ModelViewSet):
     queryset = Demand.objects.all()
     serializer_class = DemandSerializer
 
-    http_method_names = [
-        "get",
-        "post",
-        "patch",
-    ]
+    http_method_names = ["get", "post", "patch", "delete"]
 
     def get_permissions(self):
-        if self.action in ["create", "list", "retrieve"]:
+        if self.action in ["create", "list", "retrieve", "delete"]:
             return [AllowAny()]
         return super().get_permissions()
 
