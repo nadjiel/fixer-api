@@ -44,3 +44,7 @@ When you have the setup ready, you'll be able to execute the project with:
 ``` sh
 python manage.py runserver
 ```
+
+## 📚 Documentation
+
+A PostMan workspace with examples of route uses can be found [here](https://nadjiels-team.postman.co/workspace/4452a508-db89-4483-a5cc-066be3a5e30e), though currently, this is privately available.
