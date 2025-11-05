@@ -1,4 +1,4 @@
-FROM python:3.11-slim as base
+FROM python:3.11-slim AS base
 
 ARG APP_USER=appuser
 ARG DEFAULT_PORT=8000
