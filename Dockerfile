@@ -34,4 +34,4 @@ USER ${APP_USER}
 EXPOSE ${PORT}
 
 # Run gunicorn
-CMD gunicorn --bind 0.0.0.0:${PORT} --workers 3 your_project.wsgi:application
+CMD gunicorn --bind 0.0.0.0:${PORT} --workers 3 project.wsgi:application
