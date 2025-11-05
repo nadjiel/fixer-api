@@ -28,7 +28,8 @@ COPY . .
 RUN useradd -m ${APP_USER} && chown -R ${APP_USER}:${APP_USER} /app
 USER ${APP_USER}
 
-RUN python manage.py collectstatic --noinput
+# This project has no static files, apparently
+# RUN python manage.py collectstatic --noinput
 
 EXPOSE ${PORT}
 
