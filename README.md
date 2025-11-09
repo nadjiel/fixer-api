@@ -17,14 +17,17 @@ Now, you can install the dependencies with:
 pip install -r requirements.txt
 ```
 
-To execute this project make sure to have a `.env` file with environment variables configured as examplified in the `.env-example` file.
+To execute this project make sure to have a `.env` file with environment variables configured as examplified in the `.env-example` file (don't let comments in your `.env` file, as that's not correctly parsed by the system yet).
 
-You'll also need a Postgres instance to which you'll connect via the variables you define. For that, a `docker-compose.yml` is provided, which spins up the required instance also using configuration from `.env`.
+You'll also need a Postgres instance to which you'll connect via the variables you define. For that, a `docker-compose.yml` is provided, which spins up the required instance also using configuration from `.env`. Besides Postgres, the `docker-compose.yml` also runs an instance of the API itself.
 
 If it's the first time you'll run the project, you'll also need to migrate the database with:
 
 ``` sh
+# Create any new migrations from models
 python manage.py makemigrations
+
+# Apply pending migrations to the DB
 python manage.py migrate
 ```
 
