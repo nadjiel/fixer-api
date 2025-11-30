@@ -20,10 +20,40 @@ class DemandViewset(viewsets.ModelViewSet):
 
     http_method_names = ["get", "post", "patch", "delete"]
 
+    # Implementation of a filter by user suggested by
+    # https://claude.ai/chat/364c0ad0-f66a-4a27-8bb8-0f85f530a6f8
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Filter by user ID
+        user_id = self.request.query_params.get('user')
+        if user_id is not None:
+            queryset = queryset.filter(user_id=user_id)
+
+        # Filter by demands supported by current user
+        supported_by_me = self.request.query_params.get('supported_by_me')
+        if supported_by_me and supported_by_me.lower() == 'true':
+            if self.request.user.is_authenticated:
+                queryset = queryset.filter(supports__user=self.request.user)
+            else:
+                queryset = queryset.none()  # Return empty queryset for anonymous users
+
+        return queryset
+
     def get_permissions(self):
         if self.action in ["create", "list", "retrieve", "delete"]:
             return [AllowAny()]
         return super().get_permissions()
+
+    # Makes sure to register demand creator.
+    # This fix was suggested by Claude in the second question of this Chat:
+    # https://claude.ai/share/0431669e-79f4-4391-93e6-ac9c677c6710
+    def perform_create(self, serializer):
+        # Only set user if authenticated
+        if self.request.user.is_authenticated:
+            serializer.save(user=self.request.user)
+        else:
+            serializer.save()  # user will be None
 
     def partial_update(self, request, *args, **kwargs):
         if action != "update_status":

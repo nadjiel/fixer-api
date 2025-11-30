@@ -14,3 +14,14 @@ class ServiceViewset(viewsets.ModelViewSet):
         if self.action in ["list", "retrieve"]:
             return [AllowAny()]
         return super().get_permissions()
+
+    # Implementation of a filter by category suggested by
+    # https://claude.ai/chat/364c0ad0-f66a-4a27-8bb8-0f85f530a6f8
+    def get_queryset(self):
+        queryset = Service.objects.all()
+        category = self.request.query_params.get("category")
+
+        if category is not None:
+            queryset = queryset.filter(category=category)
+
+        return queryset
