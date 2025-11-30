@@ -23,4 +23,8 @@ class DemandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Demand
         fields = "__all__"
+        # Lets user and code as readonly, as suggested by Claude,
+        # in the second question of this Chat:
+        # https://claude.ai/share/0431669e-79f4-4391-93e6-ac9c677c6710
+        read_only_fields = ['user', 'code']
         # exclude = ["id"]
