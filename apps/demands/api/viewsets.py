@@ -24,10 +24,19 @@ class DemandViewset(viewsets.ModelViewSet):
     # https://claude.ai/chat/364c0ad0-f66a-4a27-8bb8-0f85f530a6f8
     def get_queryset(self):
         queryset = super().get_queryset()
-        user_id = self.request.query_params.get('user')
 
+        # Filter by user ID
+        user_id = self.request.query_params.get('user')
         if user_id is not None:
             queryset = queryset.filter(user_id=user_id)
+
+        # Filter by demands supported by current user
+        supported_by_me = self.request.query_params.get('supported_by_me')
+        if supported_by_me and supported_by_me.lower() == 'true':
+            if self.request.user.is_authenticated:
+                queryset = queryset.filter(supports__user=self.request.user)
+            else:
+                queryset = queryset.none()  # Return empty queryset for anonymous users
 
         return queryset
 
