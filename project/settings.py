@@ -72,8 +72,10 @@ INTERNAL_IPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # # TODO: Ver maneira de fazer isso dinamicamente, igual fiz no debug toolbar
     # https://pypi.org/project/django-cors-headers/
-    "corsheaders.middleware.CorsMiddleware",  # doc manda botar antes de CommonMiddleware # TODO: Ver maneira de fazer isso dinamicamente, igual fiz no debug toolbar
+    # doc manda botar antes de CommonMiddleware
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -163,7 +165,8 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     "apps.user_profile.backends.EmailBackend",
-    "django.contrib.auth.backends.ModelBackend",  # Add this for other authentication methods
+    # Add this for other authentication methods
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True  # Use only in development
